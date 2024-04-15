@@ -30,7 +30,7 @@ void test_mncblas_sswap() {
 
     Voir_float(X,Y,4);
 
-    mncblas_sswap(N, X, 1, Y, 1);
+    mncblas_sswap_omp(N, X, 1, Y, 1);
 
     Voir_float(X,Y,4);
 
@@ -54,7 +54,7 @@ void test_mncblas_dswap() {
 
     Voir_double(X,Y,4);
 
-    mncblas_dswap(N, X, 1, Y, 1);
+    mncblas_dswap_omp(N, X, 1, Y, 1);
 
     Voir_double(X,Y,4);
 
@@ -91,7 +91,7 @@ void test_mncblas_cswap() {
     int N = 3;
     Voir_complexe_float(X,Y,3);
 
-    mncblas_cswap(N, X, 1, Y, 1);
+    mncblas_cswap_omp(N, X, 1, Y, 1);
 
     Voir_complexe_float(X,Y,3);
 
@@ -108,7 +108,7 @@ void test_mncblas_zswap() {
 
     Voir_complexe_double(X,Y,3);
 
-    mncblas_zswap(N, X, 1, Y, 1);
+    mncblas_zswap_omp(N, X, 1, Y, 1);
 
     Voir_complexe_double(X,Y,3);
 
@@ -225,7 +225,7 @@ void s(){
      vector_init (vec2, 2.0) ;
      
      TOP_NANO (start) ;
-        mncblas_sswap (VECSIZE, vec1, 1, vec2, 1) ;
+        mncblas_sswap_omp (VECSIZE, vec1, 1, vec2, 1) ;
      TOP_NANO (end);
      temp_moy = temp_moy+diff_nano(&start,&end);
 
@@ -247,7 +247,7 @@ void d(){
      vector_init_d (d1, 1.0) ;
      vector_init_d (d2, 2.0) ;
      TOP_NANO (start) ;
-        mncblas_dswap (VECSIZE, d1, 1, d2, 1) ;
+        mncblas_dswap_omp (VECSIZE, d1, 1, d2, 1) ;
      TOP_NANO (end);
      temp_moy = temp_moy+diff_nano(&start,&end);
   }
@@ -268,7 +268,7 @@ void c(){
      
      
      TOP_NANO (start) ;
-        mncblas_cswap (VECSIZE, v1, 1, v2, 1) ;
+        mncblas_cswap_omp (VECSIZE, v1, 1, v2, 1) ;
      TOP_NANO (end);
      temp_moy = temp_moy+diff_nano(&start,&end);
   }
@@ -289,11 +289,11 @@ void z(){
      
 
      TOP_NANO (start) ;
-        mncblas_zswap (VECSIZE, v3, 1, v4, 1) ;
+        mncblas_zswap_omp (VECSIZE, v3, 1, v4, 1) ;
      TOP_NANO (end);
      temp_moy = temp_moy+diff_nano(&start,&end);
   }
-  printf ("zwap => nb flottants: %f en %e seconde\n", 0.0,temp_moy/NB_FOIS) ;
+  printf ("zswap => nb flottants: %f en %e seconde\n", 0.0,temp_moy/NB_FOIS) ;
 
 }
 

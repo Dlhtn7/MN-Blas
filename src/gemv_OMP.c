@@ -13,7 +13,7 @@ void mncblas_sgemv_omp(const MNCBLAS_LAYOUT layout,
                         for(i=0;i<M;i+=incX){
                             float Ax = 0.0;
                             for(j=0;j<N;j+=incY){
-                                Ax = Ax + A[i*N+j]*X[j];
+                                Ax = Ax + A[i*M+j]*X[j];
                             }
                             Y[i] = Ax*alpha+ Y[i]*beta;
                         }
@@ -41,7 +41,7 @@ void mncblas_dgemv_omp(MNCBLAS_LAYOUT layout,
                         for(i=0;i<M;i+=incX){
                             double Ax = 0.0;
                             for(j=0;j<N;j+=incY){
-                                Ax = Ax + A[i*N+j]*X[j];
+                                Ax = Ax + A[i*M+j]*X[j];
                             }
                             Y[i] = Ax*alpha+ Y[i]*beta;
                         }
@@ -75,7 +75,7 @@ void mncblas_cgemv_omp(MNCBLAS_LAYOUT layout,
                     for (i=0;i<M;i+=incX){
                         complexe_float_t Ax = (complexe_float_t){0.0,0.0};
                         for(j=0;j<N;j+=incY){
-                        Ax = add_complexe_float(Ax, mult_complexe_float(A2[i*N+j], X2[j]));
+                        Ax = add_complexe_float(Ax, mult_complexe_float(A2[i*M+j], X2[j]));
                         }
                         Y2[i] = add_complexe_float(mult_complexe_float(Y2[i], beta2) , mult_complexe_float(Ax, alpha2));
                     }
@@ -119,7 +119,7 @@ void mncblas_zgemv_omp(MNCBLAS_LAYOUT layout,
                     for (i=0;i<M;i+=incX){
                         complexe_double_t Ax = (complexe_double_t){0.0,0.0};
                         for(j=0;j<N;j+=incY){
-                        Ax = add_complexe_double(Ax, mult_complexe_double(A2[i*N+j], X2[j]));
+                        Ax = add_complexe_double(Ax, mult_complexe_double(A2[i*M+j], X2[j]));
                         }
                         Y2[i] = add_complexe_double(mult_complexe_double(Y2[i], beta2) , mult_complexe_double(Ax, alpha2));
                     }

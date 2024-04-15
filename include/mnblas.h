@@ -317,3 +317,16 @@ void mncblas_zgemm_omp(MNCBLAS_LAYOUT layout, MNCBLAS_TRANSPOSE TransA,
                  const int K, const void *alpha, const void *A,
                  const int lda, const void *B, const int ldb,
                  const void *beta, void *C, const int ldc);
+
+
+void mncblas_sswap_omp(const int N, float *X, const int incX, 
+                 float *Y, const int incY);
+                 
+void mncblas_dswap_omp(const int N, double *X, const int incX, 
+                 double *Y, const int incY);
+
+void mncblas_cswap_omp(const int N, void *X, const int incX, 
+		                    void *Y, const int incY);
+
+void mncblas_zswap_omp(const int N, void *X, const int incX, 
+		                    void *Y, const int incY);

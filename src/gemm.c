@@ -126,12 +126,12 @@ void mncblas_sgemm(MNCBLAS_LAYOUT layout, MNCBLAS_TRANSPOSE TransA,
 
     for(i=0;i<M;i+=1){
         for(j=0;j<N;j++){
-        C[i*M+j] = C[i*N+j]*beta;
+            C[i*M+j] = C[i*M+j]*beta;
         }
     }
 
-    for(i=0;i<N;i+=1){
-        for(k=0;k<N;k+=1){
+    for(i=0;i<M;i+=1){
+        for(k=0;k<K;k+=1){
             for(j=0;j<N;j+=1){
                 C[i*M+j] += A[i*M+k] * B[k*N+j]*alpha; 
             }
@@ -155,7 +155,7 @@ void mncblas_dgemm(MNCBLAS_LAYOUT layout, MNCBLAS_TRANSPOSE TransA,
 
     for(i=0;i<M;i+=1){
         for(j=0;j<N;j++){
-        C[i*N+j] = C[i*N+j]*beta;
+            C[i*M+j] = C[i*M+j]*beta;
         }
     }
 
@@ -196,14 +196,15 @@ void mncblas_cgemm(MNCBLAS_LAYOUT layout, MNCBLAS_TRANSPOSE TransA,
 
     for(i=0;i<M;i+=1){
         for(j=0;j<N;j++){
-        c2[i*N+j] = mult_complexe_float(c2[i*N+j],beta2);
+            c2[i*M+j] = mult_complexe_float(c2[i*M+j],beta2);
         }
     }
 
-    for(i=0;i<N;i+=1){
-        for(k=0;k<N;k+=1){
+    for(i=0;i<M;i+=1){
+        for(k=0;k<K;k+=1){
             for(j=0;j<N;j+=1){
-                c2[i*M+j] = add_complexe_float(c2[i*M+j], mult_complexe_float(mult_complexe_float(a2[i*M+k], b2[k*N+j]), alpha2)); 
+                complexe_float_t ABa = mult_complexe_float(mult_complexe_float(a2[i*M+k], b2[k*N+j]), alpha2);
+                c2[i*M+j] = add_complexe_float(c2[i*M+j], ABa); 
             }
         }
     }
@@ -238,14 +239,15 @@ void mncblas_zgemm(MNCBLAS_LAYOUT layout, MNCBLAS_TRANSPOSE TransA,
 
     for(i=0;i<M;i+=1){
         for(j=0;j<N;j++){
-        c2[i*M+j] = mult_complexe_double(c2[i*N+j],beta2);
+            c2[i*M+j] = mult_complexe_double(c2[i*M+j],beta2);
         }
     }
     
-    for(i=0;i<N;i+=1){
-        for(k=0;k<N;k+=1){
+    for(i=0;i<M;i+=1){
+        for(k=0;k<K;k+=1){
             for(j=0;j<N;j+=1){
-                c2[i*M+j] = add_complexe_double(c2[i*M+j], mult_complexe_double(mult_complexe_double(a2[i*M+k], b2[k*N+j]), alpha2)); 
+                complexe_double_t ABa = mult_complexe_double(mult_complexe_double(a2[i*M+k], b2[k*N+j]), alpha2);
+                c2[i*M+j] = add_complexe_double(c2[i*M+j], ABa); 
             }
         }
     }

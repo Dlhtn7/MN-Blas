@@ -10,16 +10,16 @@ OPTIM=-O2 -fopenmp
 OPTIONS=-O2 -Wall -fPIC $(OPTIM) -I$(INC_DIR)
 # Bibliothèque statique
 
-libmnblas.a: dot_OMP.o copy_OMP.o axpy_OMP.o gemv_OMP.o gemm_OMP.o gemm.o gemv.o asum.o axpy.o copy.o swap.o dot.o complexe.o
+libmnblas.a: swap_OMP.o dot_OMP.o copy_OMP.o axpy_OMP.o gemv_OMP.o gemm_OMP.o gemm.o gemv.o asum.o axpy.o copy.o swap.o dot.o complexe.o
 	rm -f libmnblas.a $(LIB_DIR)/libmnblas.a
-	ar -r libmnblas.a dot_OMP.o copy_OMP.o axpy_OMP.o gemv_OMP.o gemm_OMP.o gemm.o gemv.o asum.o axpy.o copy.o swap.o dot.o complexe.o
+	ar -r libmnblas.a swap_OMP.o dot_OMP.o copy_OMP.o axpy_OMP.o gemv_OMP.o gemm_OMP.o gemm.o gemv.o asum.o axpy.o copy.o swap.o dot.o complexe.o
 	cp libmnblas.a $(LIB_DIR)
 
 # Bibliothèque dynamique
 
-libmnblasdyn.so: dot_OMP.o copy_OMP.o axpy_OMP.o gemv_OMP.o gemm_OMP.o gemm.o gemv.o asum.o axpy.o copy.o swap.o dot.o complexe.o
+libmnblasdyn.so: swap_OMP.o dot_OMP.o copy_OMP.o axpy_OMP.o gemv_OMP.o gemm_OMP.o gemm.o gemv.o asum.o axpy.o copy.o swap.o dot.o complexe.o
 	rm -f libmnblasdyn.so $(LIB_DIR)/libmnblasdyn.so
-	gcc -shared -o libmnblasdyn.so dot_OMP.o copy_OMP.o axpy_OMP.o gemv_OMP.o gemm_OMP.o gemm.o gemv.o asum.o axpy.o copy.o swap.o dot.o complexe.o
+	gcc -shared -o libmnblasdyn.so swap_OMP.o dot_OMP.o copy_OMP.o axpy_OMP.o gemv_OMP.o gemm_OMP.o gemm.o gemv.o asum.o axpy.o copy.o swap.o dot.o complexe.o
 	cp libmnblasdyn.so $(LIB_DIR)
 
 complexe.o: $(INC_DIR)/complexe.h complexe.c
@@ -61,6 +61,9 @@ dot_OMP.o : dot_OMP.c $(INC_DIR)/mnblas.h
 
 axpy_OMP.o : axpy_OMP.c $(INC_DIR)/mnblas.h
 	gcc  $(OPTIONS) -c axpy_OMP.c
+
+swap_OMP.o : swap_OMP.c $(INC_DIR)/mnblas.h
+	gcc  $(OPTIONS) -c swap_OMP.c
 
 gemv_OMP.o : gemv_OMP.c $(INC_DIR)/mnblas.h
 	gcc  $(OPTIONS) -c gemv_OMP.c
